@@ -8,17 +8,40 @@
             dataType: 'json',
             success: function (msg) {
                 console.log(msg);
+                $.each(msg, function (key, value) {
+                    console.log("Papapa: " + {text: value.imie});
+                    console.log();
+                });
                 $(".jumbotron").append('Wiadomosc: '+msg);
                 alert(msg);
                 console.log('Przed jsonem');
                 $.getJSON('http://localhost:2470/api/Kontakty').done(function (data) {
                     console.log(data);
                     console.log('Zaszlo w jsonie');
-                    $.each(data, function (key, item) {
-                        $('.jumbotron').append(key);
-                        for (var key in item) {
-                            console.log('Key: ' + key + "Key value:" + item[key]);
+                  
+                    
+                    $.each(data, function (keyo, itemo) {
+                        console.log("key: " + keyo);
+                        console.log("item: " + itemo);
+                        $('.jumbotron').append(keyo);
+                        var n = 0;
+                        for (var key in itemo) {
+                            console.log("key w petli: "+key);
+                            console.log("item : " + itemo);
+                            console.log('Key: ' + key + "Key value:" + itemo[n]);
+                            console.log('Id: ' + $(key).attr('id'));
+                            if ($(itemo[n]).has("id")) {
+                                console.log("wartosc: " + $(key).text());
+                                $('.jumbotron').append('<br/> ID: ' + itemo[key]);
+                            } else {
+                                console.log('false');
+                            }
+                            n++;
                         }
+                        $.map(Object, function (item) {
+                           
+                        });
+                        
                     });
                 });
 
