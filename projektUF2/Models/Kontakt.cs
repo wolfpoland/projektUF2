@@ -5,6 +5,7 @@ using System.Web;
 
 namespace projektUF2.Models
 {
+    [Serializable]
     public class Kontakt
     {
         public Kontakt(int id,string imie, string nazwisko)
