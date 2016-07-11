@@ -7,19 +7,29 @@
                     $('#produkty').append('<li>' + item.imie + ' ' + item.nazwisko + '</li> ');
                 });
             });
-            $('#save').click(function () {
-                $.post("api/Kontakty", $('#formularz').serialize(),
-                    function (value) {
-                        alert(value);
-                        $('#produkty').append('<li>' + value.imie + '</li>');
-                    },
-                    'json'
-                    );
-            });
+  
 
         });
+        $('#save').click(function () {
+            console.log('Klik');
+            $.post("/api/Kontakty/Post", $('#formularz').serialize(),
+                function (value) {
+                    alert(value);
+                    $('#produkty').append('<li>' + value.imie + '</li>');
+                },
+                "json"
+                );
+        });
 
-      /*  $(document).ready(function(){
+        /* 
+            
+        
+        
+        
+        
+        
+        
+        $(document).ready(function(){
             $.getJSON('http://localhost:2470/api/Kontakty').done(function (data) {
                 console.log(data);
                 $.each(data, function (key, item) {
@@ -47,13 +57,15 @@
 <div class="jumbotron">
     <ul id="produkty"></ul>
     <form id="formularz" name="Formularz" method="post">
-        <fieldset>
+        <p>
             <label for="Imie">Imie: </label>
             <input type="text" name="Imie" id="Nazwisko" value="" /></br>
+            </p>
+        <p>
             <label for="Nazwisko">Nazwisko: </label>
             <input type="text" name="Nazwisko" id="Nazwisko" value="" /></br>
-        </fieldset>
-        <input type="submit" value="Zapisz" id="save"/>
+        </p>
+        <input type="button" value="Zapisz" id="save"/>
 
 
 
