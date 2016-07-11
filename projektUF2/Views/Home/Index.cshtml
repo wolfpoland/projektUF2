@@ -4,13 +4,43 @@
             $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
-                    $('#produkty').append('<li>' + item.imie + ' ' + item.nazwisko + '</li> ');
+                    console.log(item.imie);
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '</li> ');
                 });
             });
   
 
         });
-        $('#save').click(function () {
+   
+        $('#saveContact').click(function () {
+            console.log("Poszlo");
+            $.post("/api/Kontakty",
+                  $("#saveContactForm").serialize(),
+                  function (value) {
+                      alert(value);
+                      $('#produkty').append('<li>' + value.imie + ' ' + value.nazwisko + '</li>');
+                  },
+                  "json"
+            );
+        });
+
+        /* 
+            
+        
+        
+        
+            $('#saveContact').click(function () {
+            $.post("api/contact",
+                  $("#saveContactForm").serialize(),
+                  function (value) {
+                      $('#contacts').append('<li>' + value.Name + ' ' + value.Surname + '</li>');
+                  },
+                  "json"
+            );
+        });
+
+
+          $('#save').click(function () {
             console.log('Klik');
             $.post("/api/Kontakty/Post", $('#formularz').serialize(),
                 function (value) {
@@ -19,14 +49,6 @@
                 },
                 "json"
                 );
-        });
-
-        /* 
-            
-        
-        
-        
-        
         
         
         $(document).ready(function(){
@@ -46,7 +68,18 @@
                 console.log('Imie: ' + item.id);
                 return item.id + " " + item.imie + " " + item.nazwisko;
             }
-
+            <form id="saveContactForm" method="post">
+    <h3>Create a new Contact</h3>
+    <p>
+        <label for="contactId">Contact Id:</label>
+        <input type="text" name="Id" />
+    </p>
+    <p>
+        <label for="contactName">Contact Name:</label>
+        <input type="text" name="Name" />
+    </p>
+    <input type="button" id="saveContact" value="Save" />
+</form>
         });*/
     </script>
 
@@ -56,20 +89,23 @@
 
 <div class="jumbotron">
     <ul id="produkty"></ul>
-    <form id="formularz" name="Formularz" method="post">
-        <p>
-            <label for="Imie">Imie: </label>
-            <input type="text" name="Imie" id="Nazwisko" value="" /></br>
-            </p>
-        <p>
-            <label for="Nazwisko">Nazwisko: </label>
-            <input type="text" name="Nazwisko" id="Nazwisko" value="" /></br>
-        </p>
-        <input type="button" value="Zapisz" id="save"/>
 
-
-
-
-    </form>
 
 </div>
+
+<form id="saveContactForm" method="post">
+    <h3>Create a new Contact</h3>
+    <p>
+        <label for="contactId">Contact Id:</label>
+        <input type="text" name="Id" />
+    </p>
+    <p>
+        <label for="contactId">Contact Id:</label>
+        <input type="text" name="Imie" />
+    </p>
+    <p>
+        <label for="contactName">Contact Name:</label>
+        <input type="text" name="Nazwisko" />
+    </p>
+    <input type="button" id="saveContact" value="Save" />
+</form>

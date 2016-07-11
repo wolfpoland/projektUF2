@@ -12,13 +12,13 @@ namespace projektUF2.Models.Service
         public Komunikacja()
         {
                      kom = new List<Kontakt>();
-                    kom.Add(new Kontakt(1, "Patryk", "Krasuski"));
-                    kom.Add(new Kontakt(2, "Alicja", "ZkrainyCzarwow"));
-               
+                    kom.Add(new Kontakt { Id=1, Imie="Patriko", Nazwisko="Fantastico"});
+                     kom.Add(new Kontakt { Id = 2, Imie = "Framlp", Nazwisko = "Fantastico" });
 
-                
-            
-           
+
+
+
+
         }
         public IEnumerable<Kontakt> getAll()
         {
