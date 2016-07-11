@@ -1,22 +1,32 @@
 ﻿@section scripts{
     <script type="text/javascript">
         $(function () {
-            $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
+            $.getJSON('/api/Kontakty/', function (contactsJsonPayload) {
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
                     console.log(item.imie);
                     console.log('testp:' + item.Id + "testp");
-                    var teskt = "/api/Kontakty/Delete/" + item.Id;
-                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko +' ' + item.Id + '<a id="link" class="linki" href='+teskt+'> Usun </a> ' + '</li> ');
+                    var tekst = 'onClick="zabawa("' + item.Id+'")"';
+                    //  $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki"  onClick="zabawa("'+item.Id+'""> Usun </a> ' + '</li> ');
+                    //<a onClick="zabawa("+item.Id+")">Usun</a>
+                    //$('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki" '+tekst+'> Usun </a> ' + '</li> ');
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + "<a href='#' onclick='zabawa(\\'item.Id\\')'>Usun</a>");
                 });
             });
             
 
         });
-        $('.linki').click(function () {
-
+        $('#link').on('click',function () {
+            console.log('Kliknieto linka')
+            window.location.href = "http://localhost:2470/Home/Index";
+            $.ajax
 
         });
+        function zabawa(id) {
+            console.log("ruszyla");
+            console.log("ID: " + id);
+            window.location.href = "http://localhost:2470/Home/Index";
+        }
         $('#saveContact').click(function () {
             console.log("Poszlo");
             $.post("/api/Kontakty",
