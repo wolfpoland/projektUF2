@@ -45,5 +45,12 @@ namespace projektUF2.Controllers
             return Ok(kontakt);
             
         }
+        public HttpResponseMessage Delete(int id)
+        {
+            List<Kontakt> lista = komunikat.kom;
+            Kontakt ko = lista.Single(k => k.Id == id);
+            var respone = Request.CreateResponse<Kontakt>(System.Net.HttpStatusCode.Accepted, ko);
+            return respone;
+        }
     }
 }

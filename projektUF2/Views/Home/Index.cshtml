@@ -5,13 +5,18 @@
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
                     console.log(item.imie);
-                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '</li> ');
+                    console.log('testp:' + item.Id + "testp");
+                    var teskt = "/api/Kontakty/Delete/" + item.Id;
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko +' ' + item.Id + '<a id="link" class="linki" href='+teskt+'> Usun </a> ' + '</li> ');
                 });
             });
-  
+            
 
         });
-   
+        $('.linki').click(function () {
+
+
+        });
         $('#saveContact').click(function () {
             console.log("Poszlo");
             $.post("/api/Kontakty",
@@ -105,10 +110,10 @@
 
 <div class="jumbotron">
     <ul id="produkty"></ul></br>
-
+    <label for="buttono">Szukaj po id: </label></br>
     <input type="text" id="szukanie"/>
- 
-    <input type="button" id="sa" value="Save" />
+  
+    <input type="button" id="sa" value="Szukaj" />
     <p id="kontakt"/>
 
 
@@ -117,17 +122,33 @@
 
 <form id="saveContactForm" method="post">
   
-    <p>
-        <label for="contactId">Id:   </label>
-        <input type="text" name="Id" />
-    </p>
-    <p>
-        <label for="contactId">Imie:   </label>
-        <input type="text" name="Imie" />
-    </p>
-    <p>
-        <label for="contactName">Nazwisko:</label>
-        <input type="text" name="Nazwisko" />
-    </p>
-    <input type="button" id="saveContact" value="Save" />
+    <table>
+        <tr>
+           <th> <label for="contactId">Id:</label> </th>
+            <td><input type="text" name="Id" /> </td>
+        </tr>
+        <tr>
+            <th><label for="contactId">Imie:</label></th>
+            <td><input type="text" name="Imie" /></td>
+        </tr>
+        <tr>
+            <th><label for="contactName">Nazwisko:</label></th>
+            <td><input type="text" name="Nazwisko" /></td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                
+            </td>
+            <td>
+                <input type="button" id="saveContact" value="Zapisz" />
+            </td>
+        </tr>
+    </table>
+    
 </form>
