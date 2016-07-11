@@ -8,10 +8,10 @@ namespace projektUF2.Models.Service
     public class Komunikacja
     {
         private const string CacheKey = "KontaktStore";
-        public List<Kontakt> kom = new List<Kontakt>();
+        public List<Kontakt> kom { get; set; }
         public Komunikacja()
         {
-    
+                     kom = new List<Kontakt>();
                     kom.Add(new Kontakt(1, "Patryk", "Krasuski"));
                     kom.Add(new Kontakt(2, "Alicja", "ZkrainyCzarwow"));
                

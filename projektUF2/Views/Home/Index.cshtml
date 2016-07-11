@@ -1,21 +1,63 @@
-﻿<div class="jumbotron">
-    <ul id="produkty"></ul>
-@section scripts{
+﻿@section scripts{
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(function () {
+            $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
+                console.log(contactsJsonPayload);
+                $(contactsJsonPayload).each(function (i, item) {
+                    $('#produkty').append('<li>' + item.imie + ' ' + item.nazwisko + '</li> ');
+                });
+            });
+            $('#save').click(function () {
+                $.post("api/Kontakty", $('#formularz').serialize(),
+                    function (value) {
+                        alert(value);
+                        $('#produkty').append('<li>' + value.imie + '</li>');
+                    },
+                    'json'
+                    );
+            });
+
+        });
+
+      /*  $(document).ready(function(){
             $.getJSON('http://localhost:2470/api/Kontakty').done(function (data) {
                 console.log(data);
                 $.each(data, function (key, item) {
+                    var n = 0;
+                    for (var no in item) {
+                        console.log("w petli petli: " + item[n]);
+                        n++;
+                    }
+                    console.log('czytam:' + item[key]);
                     $('<li>', { text: formatItem(item) }).appendTo($('#produkty'));
                 });
             });
             function formatItem(item) {
+                console.log('Imie: ' + item.id);
                 return item.id + " " + item.imie + " " + item.nazwisko;
             }
-      
-        });
+
+        });*/
     </script>
-    
-    
-    }
+
+
+}
+
+
+<div class="jumbotron">
+    <ul id="produkty"></ul>
+    <form id="formularz" name="Formularz" method="post">
+        <fieldset>
+            <label for="Imie">Imie: </label>
+            <input type="text" name="Imie" id="Nazwisko" value="" /></br>
+            <label for="Nazwisko">Nazwisko: </label>
+            <input type="text" name="Nazwisko" id="Nazwisko" value="" /></br>
+        </fieldset>
+        <input type="submit" value="Zapisz" id="save"/>
+
+
+
+
+    </form>
+
 </div>

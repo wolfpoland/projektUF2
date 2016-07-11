@@ -20,5 +20,16 @@ namespace projektUF2.Controllers
         public IEnumerable<Kontakt> Get() {
             return komunikat.getAll();
         }
+        [HttpPost]
+        public HttpResponseMessage Post(Kontakt kontakt)
+        {
+            List<Kontakt> tmp = komunikat.kom;
+            tmp.Add(kontakt);
+            System.Diagnostics.Debug.WriteLine("ID: {0} Imie: {1} Nazwisko: {2}", kontakt.id, kontakt.imie, kontakt.nazwisko);
+            Console.WriteLine("ID: {0} Imie: {1} Nazwisko: {2}",kontakt.id,kontakt.imie, kontakt.nazwisko);
+
+            var response = Request.CreateResponse<Kontakt>(System.Net.HttpStatusCode.Created, kontakt);
+            return response;
+        }
     }
 }
