@@ -1,20 +1,75 @@
-﻿<div class="jumbotron">
-    <ul id="produkty"></ul>
-@section scripts{
+﻿@section scripts{
     <script type="text/javascript">
+        $(function () {
+            $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
+                console.log(contactsJsonPayload);
+                $(contactsJsonPayload).each(function (i, item) {
+                    $('#produkty').append('<li>' + item.imie + ' ' + item.nazwisko + '</li> ');
+                });
+            });
+  
+
+        });
+        $('#save').click(function () {
+            console.log('Klik');
+            $.post("/api/Kontakty/Post", $('#formularz').serialize(),
+                function (value) {
+                    alert(value);
+                    $('#produkty').append('<li>' + value.imie + '</li>');
+                },
+                "json"
+                );
+        });
+
+        /* 
+            
+        
+        
+        
+        
+        
+        
         $(document).ready(function(){
             $.getJSON('http://localhost:2470/api/Kontakty').done(function (data) {
+                console.log(data);
                 $.each(data, function (key, item) {
+                    var n = 0;
+                    for (var no in item) {
+                        console.log("w petli petli: " + item[n]);
+                        n++;
+                    }
+                    console.log('czytam:' + item[key]);
                     $('<li>', { text: formatItem(item) }).appendTo($('#produkty'));
                 });
             });
             function formatItem(item) {
+                console.log('Imie: ' + item.id);
                 return item.id + " " + item.imie + " " + item.nazwisko;
             }
-      
-        });
+
+        });*/
     </script>
-    
-    
-    }
+
+
+}
+
+
+<div class="jumbotron">
+    <ul id="produkty"></ul>
+    <form id="formularz" name="Formularz" method="post">
+        <p>
+            <label for="Imie">Imie: </label>
+            <input type="text" name="Imie" id="Nazwisko" value="" /></br>
+            </p>
+        <p>
+            <label for="Nazwisko">Nazwisko: </label>
+            <input type="text" name="Nazwisko" id="Nazwisko" value="" /></br>
+        </p>
+        <input type="button" value="Zapisz" id="save"/>
+
+
+
+
+    </form>
+
 </div>
