@@ -4,7 +4,8 @@
             $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
-                    $('#produkty').append('<li>' + item.imie + ' ' + item.nazwisko + '</li> ');
+                    console.log(item.imie);
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '</li> ');
                 });
             });
   
@@ -12,6 +13,7 @@
         });
    
         $('#saveContact').click(function () {
+            console.log("Poszlo");
             $.post("/api/Kontakty",
                   $("#saveContactForm").serialize(),
                   function (value) {
@@ -87,21 +89,23 @@
 
 <div class="jumbotron">
     <ul id="produkty"></ul>
-    <form id="saveContactForm" method="post">
-        <h3>Create a new Contact</h3>
-        <p>
-            <label for="contactId">Contact Id:</label>
-            <input type="text" name="id" />
-        </p>
-        <p>
-            <label for="contactId">Contact Id:</label>
-            <input type="text" name="imie" />
-        </p>
-        <p>
-            <label for="contactName">Contact Name:</label>
-            <input type="text" name="nazwisko" />
-        </p>
-        <input type="button" id="saveContact" value="Save" />
-    </form>
+
 
 </div>
+
+<form id="saveContactForm" method="post">
+    <h3>Create a new Contact</h3>
+    <p>
+        <label for="contactId">Contact Id:</label>
+        <input type="text" name="Id" />
+    </p>
+    <p>
+        <label for="contactId">Contact Id:</label>
+        <input type="text" name="Imie" />
+    </p>
+    <p>
+        <label for="contactName">Contact Name:</label>
+        <input type="text" name="Nazwisko" />
+    </p>
+    <input type="button" id="saveContact" value="Save" />
+</form>

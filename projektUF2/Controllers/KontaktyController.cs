@@ -21,7 +21,7 @@ namespace projektUF2.Controllers
             return komunikat.getAll();
         }
        
-        public HttpResponseMessage Post(Kontakt kontakt)
+        public HttpResponseMessage Post([FromBody]Kontakt kontakt)
         {
             komunikat.saveKontakt(kontakt);
           //  List<Kontakt> tmp = komunikat.kom;

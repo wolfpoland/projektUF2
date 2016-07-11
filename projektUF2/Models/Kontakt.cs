@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace projektUF2.Models
@@ -8,14 +9,14 @@ namespace projektUF2.Models
    
     public class Kontakt
     {
-        public Kontakt(int id,string imie, string nazwisko)
+      /*  public Kontakt(int id,string imie, string nazwisko)
         {
-            this.id = id;
-            this.imie = imie;
-            this.nazwisko = nazwisko;
-        }
-        public int id { get; set; }
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
+            this.Id = id;
+            this.Imie = imie;
+            this.Nazwisko = nazwisko;
+        }*/
+        public int Id { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
     }
 }
