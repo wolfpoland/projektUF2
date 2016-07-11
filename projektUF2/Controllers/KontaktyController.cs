@@ -17,7 +17,7 @@ namespace projektUF2.Controllers
             this.komunikat = new Komunikacja();
         }
         [HttpGet]
-        public Kontakt[] Get() {
+        public IEnumerable<Kontakt> Get() {
             return komunikat.getAll();
         }
     }

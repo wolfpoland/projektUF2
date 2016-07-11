@@ -4,6 +4,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $.getJSON('http://localhost:2470/api/Kontakty').done(function (data) {
+                console.log(data);
                 $.each(data, function (key, item) {
                     $('<li>', { text: formatItem(item) }).appendTo($('#produkty'));
                 });
