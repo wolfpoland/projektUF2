@@ -24,6 +24,21 @@
             );
         });
 
+        function formatItem(item) {
+            return item.Imie + ' ' + item.nazwisko;
+        }
+        function find() {
+            var id = $('#szukanie').val();
+            $.getJSON('http://localhost:2470/api/Kontakty' + '/' + id).done(function (data) {
+                $('#kontakt').text(formatItem(data));
+            });
+            $('#klik').click(function () {
+                console.log('Poszlo klik szukania');
+                find();
+            });
+
+        }
+
         /* 
             
         
@@ -88,23 +103,28 @@
 
 
 <div class="jumbotron">
-    <ul id="produkty"></ul>
+    <ul id="produkty"></ul></br>
+
+    <input type="text" id="szukanie"/>
+    <input type="button" value="Szukaj" id="klik" />
+    <p id="kontakt"/>
+
 
 
 </div>
 
 <form id="saveContactForm" method="post">
-    <h3>Create a new Contact</h3>
+  
     <p>
-        <label for="contactId">Contact Id:</label>
+        <label for="contactId">Id:</label>
         <input type="text" name="Id" />
     </p>
     <p>
-        <label for="contactId">Contact Id:</label>
+        <label for="contactId">Imie:</label>
         <input type="text" name="Imie" />
     </p>
     <p>
-        <label for="contactName">Contact Name:</label>
+        <label for="contactName">Nazwisko:</label>
         <input type="text" name="Nazwisko" />
     </p>
     <input type="button" id="saveContact" value="Save" />
