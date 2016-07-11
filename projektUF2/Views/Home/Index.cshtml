@@ -25,19 +25,20 @@
         });
 
         function formatItem(item) {
-            return item.Imie + ' ' + item.nazwisko;
+            return item.Imie + ' ' + item.Nazwisko;
         }
         function find() {
             var id = $('#szukanie').val();
             $.getJSON('http://localhost:2470/api/Kontakty' + '/' + id).done(function (data) {
                 $('#kontakt').text(formatItem(data));
             });
-            $('#klik').click(function () {
-                console.log('Poszlo klik szukania');
-                find();
-            });
+          
 
         }
+        $('#sa').click(function () {
+            console.log('Poszlo klik szukania');
+            find();
+        });
 
         /* 
             
@@ -106,7 +107,8 @@
     <ul id="produkty"></ul></br>
 
     <input type="text" id="szukanie"/>
-    <input type="button" value="Szukaj" id="klik" />
+ 
+    <input type="button" id="sa" value="Save" />
     <p id="kontakt"/>
 
 
@@ -116,11 +118,11 @@
 <form id="saveContactForm" method="post">
   
     <p>
-        <label for="contactId">Id:</label>
+        <label for="contactId">Id:   </label>
         <input type="text" name="Id" />
     </p>
     <p>
-        <label for="contactId">Imie:</label>
+        <label for="contactId">Imie:   </label>
         <input type="text" name="Imie" />
     </p>
     <p>
