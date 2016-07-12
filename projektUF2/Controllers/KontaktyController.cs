@@ -24,9 +24,10 @@ namespace projektUF2.Controllers
         public HttpResponseMessage Post([FromBody]Kontakt kontakt)
         {
 
-            komunikat.saveKontakt(kontakt);
+           // komunikat.saveKontakt(kontakt);
             List<Kontakt> tmp = komunikat.kom;
             tmp.Add(kontakt);
+            komunikat.kom = tmp;
              System.Diagnostics.Debug.WriteLine("ID: {0} Imie: {1} Nazwisko: {2}", kontakt.Id, kontakt.Imie, kontakt.Nazwisko);
             //Console.WriteLine("ID: {0} Imie: {1} Nazwisko: {2}",kontakt.id,kontakt.imie, kontakt.nazwisko);
 
@@ -46,6 +47,7 @@ namespace projektUF2.Controllers
             return Ok(kontakt);
             
         }
+        
         [HttpDelete]
         public HttpResponseMessage Delete(int Id)
         {
