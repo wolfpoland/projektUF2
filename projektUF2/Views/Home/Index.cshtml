@@ -1,16 +1,16 @@
 ﻿@section scripts{
     <script type="text/javascript">
         $(function () {
-            $.getJSON('/api/Kontakty/', function (contactsJsonPayload) {
+            $.getJSON('/api/Kontakts/', function (contactsJsonPayload) {
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
                     console.log(item.imie);
                     console.log('testp:' + item.Id + "testp");
                     //    var tekst = 'onClick="zabawa("' + item.Id+'")"';
-                    var teskt = "/api/Kontakty/" + item.Id;
+                    var teskt = "/api/Kontakts/" + item.Id;
                     //  $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki"  onClick="zabawa("'+item.Id+'""> Usun </a> ' + '</li> ');
                     //<a onClick="zabawa("+item.Id+")">Usun</a>
-                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> ' + '</li> ');
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> <a id="link" class="puty" tekst=' + teskt + '> Edytuj </a> ' + '</li> ');
                  //   $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + "<a href='#' onclick='zabawa(\\'item.Id\\')'>Usun</a>");
                 });
             });
@@ -26,6 +26,7 @@
         */
         $(document).on('click', "a.linki", function () {
             var id = $(this).attr('tekst');
+            $(this).parent().remove();
             console.log('Id:' + id);
             console.log('Kliknietow');
             $.ajax({
@@ -33,8 +34,36 @@
                 type: 'DELETE',
                 success: function (result) {
                     alert(result);
-                }
+                   
+                    }
+                
             });
+        });
+        function puty(item){
+            var id = $(this).attr('tekst');
+
+            console.log('Id:' + id);
+            console.log('Wyswietlam parentow:');
+            /* var paren = $(this).parents('*');
+             for (var i = 0; i < paren.length; i++) {
+                 console.log(paren[i]);
+             }*/
+
+            console.log('TU PUT');
+            $.ajax({
+                url: id,
+                dataType: 'json',
+                type: 'PUT',
+                data: $(this).parent("item"),
+                success: function (result) {
+                    alert('PUT:' + result);
+
+                }
+
+            });
+        }
+        $(document).on('click', "a.puty", function () {
+            puty($(this.item));
         });
         function zabawa(id) {
             console.log("ruszyla");
@@ -43,12 +72,13 @@
         }
         $('#saveContact').click(function () {
             console.log("Poszlo");
-            $.post("/api/Kontakty",
+            $.post("/api/Kontakts",
                   $("#saveContactForm").serialize(),
                   function (value) {
                       alert(value);
-                      var teskt = "/api/Kontakty/" + value.Id;
-                      $('#produkty').append('<li>' + value.Imie + ' ' + value.Nazwisko + ' ' + value.Id + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> ' + '</li> ');
+                      var teskt = "/api/Kontakts/" + value.Id;
+                      //$('#produkty').append('<li>' + value.Imie + ' ' + value.Nazwisko + ' ' + value.Id + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> ' + '</li> '+ '<a id="link" class="puty" tekst=' + teskt + '> Edytuj </a> ' + '</li> ');
+                      $('#produkty').append('<li>' + value.Imie + ' ' + value.Nazwisko + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> <a id="link" class="puty" tekst=' + teskt + '> Edytuj </a> ' + '</li> ');
                   },
                   "json"
             );
@@ -59,8 +89,9 @@
         }
         function find() {
             var id = $('#szukanie').val();
-            $.getJSON('http://localhost:2470/api/Kontakty' + '/' + id).done(function (data) {
+            $.getJSON('http://localhost:2470/api/Kontakts' + '/' + id).done(function (data) {
                 $('#kontakt').text(formatItem(data));
+               
             });
           
 
@@ -134,12 +165,14 @@
 
 
 <div class="jumbotron">
-    <ul id="produkty"></ul></br>
+   
     <label for="buttono">Szukaj po id: </label></br>
     <input type="text" id="szukanie"/>
-  
-    <input type="button" id="sa" value="Szukaj" />
-    <p id="kontakt"/>
+   
+    <input type="button" id="sa" value="Szukaj" /></br>
+    <p id="kontakt" /></br>
+    <ul id="produkty"></ul>
+   
 
 
 
@@ -148,10 +181,7 @@
 <form id="saveContactForm" method="post">
   
     <table>
-        <tr>
-           <th> <label for="contactId">Id:</label> </th>
-            <td><input type="text" name="Id" /> </td>
-        </tr>
+      
         <tr>
             <th><label for="contactId">Imie:</label></th>
             <td><input type="text" name="Imie" /></td>

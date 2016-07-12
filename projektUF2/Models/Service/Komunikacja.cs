@@ -8,17 +8,26 @@ namespace projektUF2.Models.Service
     public class Komunikacja
     {
         private const string CacheKey = "KontaktStore";
-        public List<Kontakt> kom { get; set; }
+        public List<Kontakt> kom = new List<Kontakt>();
+      /*  {
+            new Kontakt { Id=1, Imie="Patriko", Nazwisko="Fantastico"},
+            new Kontakt { Id = 2, Imie = "Framlp", Nazwisko = "Fantastico" }
+        };*/
         public Komunikacja()
         {
-                     kom = new List<Kontakt>();
-                    kom.Add(new Kontakt { Id=1, Imie="Patriko", Nazwisko="Fantastico"});
-                     kom.Add(new Kontakt { Id = 2, Imie = "Framlp", Nazwisko = "Fantastico" });
 
-
-
-
-
+        }
+        public List<Kontakt> getLista()
+        {
+            return kom;
+        }
+        public void setLista(List<Kontakt> nowa)
+        {
+            kom = new List<Kontakt>();
+            foreach (Kontakt item in nowa)
+            {
+                kom.Add(item);
+            }
         }
         public IEnumerable<Kontakt> getAll()
         {

@@ -178,3 +178,5 @@ C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\bin
 C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\obj\Debug\projektUF2.csprojResolveAssemblyReference.cache
 C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\obj\Debug\projektUF2.dll
 C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\obj\Debug\projektUF2.pdb
+C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\obj\Debug\projektUF2.Migrations.Initial.resources
+C:\Users\Patryk\Documents\Visual Studio 2015\Projects\Nowy folder\projektUF2\obj\Debug\projektUF2.csproj.GenerateResource.Cache
