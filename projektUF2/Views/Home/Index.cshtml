@@ -1,24 +1,54 @@
 ﻿@section scripts{
     <script type="text/javascript">
         $(function () {
-            $.getJSON('/api/Kontakty', function (contactsJsonPayload) {
+            $.getJSON('/api/Kontakty/', function (contactsJsonPayload) {
                 console.log(contactsJsonPayload);
                 $(contactsJsonPayload).each(function (i, item) {
                     console.log(item.imie);
-                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '</li> ');
+                    console.log('testp:' + item.Id + "testp");
+                    //    var tekst = 'onClick="zabawa("' + item.Id+'")"';
+                    var teskt = "/api/Kontakty/" + item.Id;
+                    //  $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki"  onClick="zabawa("'+item.Id+'""> Usun </a> ' + '</li> ');
+                    //<a onClick="zabawa("+item.Id+")">Usun</a>
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> ' + '</li> ');
+                 //   $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + "<a href='#' onclick='zabawa(\\'item.Id\\')'>Usun</a>");
                 });
             });
-  
+            
 
         });
-   
+        /*$('#link').on('click',function () {
+            console.log('Kliknieto linka')
+            window.location.href = "http://localhost:2470/Home/Index";
+            $.ajax
+
+        });
+        */
+        $(document).on('click', "a.linki", function () {
+            var id = $(this).attr('tekst');
+            console.log('Id:' + id);
+            console.log('Kliknietow');
+            $.ajax({
+                url: id,
+                type: 'DELETE',
+                success: function (result) {
+                    alert(result);
+                }
+            });
+        });
+        function zabawa(id) {
+            console.log("ruszyla");
+            console.log("ID: " + id);
+            window.location.href = "http://localhost:2470/Home/Index";
+        }
         $('#saveContact').click(function () {
             console.log("Poszlo");
             $.post("/api/Kontakty",
                   $("#saveContactForm").serialize(),
                   function (value) {
                       alert(value);
-                      $('#produkty').append('<li>' + value.imie + ' ' + value.nazwisko + '</li>');
+                      var teskt = "/api/Kontakty/" + value.Id;
+                      $('#produkty').append('<li>' + value.Imie + ' ' + value.Nazwisko + ' ' + value.Id + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> ' + '</li> ');
                   },
                   "json"
             );
@@ -105,10 +135,10 @@
 
 <div class="jumbotron">
     <ul id="produkty"></ul></br>
-
+    <label for="buttono">Szukaj po id: </label></br>
     <input type="text" id="szukanie"/>
- 
-    <input type="button" id="sa" value="Save" />
+  
+    <input type="button" id="sa" value="Szukaj" />
     <p id="kontakt"/>
 
 
@@ -117,17 +147,33 @@
 
 <form id="saveContactForm" method="post">
   
-    <p>
-        <label for="contactId">Id:   </label>
-        <input type="text" name="Id" />
-    </p>
-    <p>
-        <label for="contactId">Imie:   </label>
-        <input type="text" name="Imie" />
-    </p>
-    <p>
-        <label for="contactName">Nazwisko:</label>
-        <input type="text" name="Nazwisko" />
-    </p>
-    <input type="button" id="saveContact" value="Save" />
+    <table>
+        <tr>
+           <th> <label for="contactId">Id:</label> </th>
+            <td><input type="text" name="Id" /> </td>
+        </tr>
+        <tr>
+            <th><label for="contactId">Imie:</label></th>
+            <td><input type="text" name="Imie" /></td>
+        </tr>
+        <tr>
+            <th><label for="contactName">Nazwisko:</label></th>
+            <td><input type="text" name="Nazwisko" /></td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                
+            </td>
+            <td>
+                <input type="button" id="saveContact" value="Zapisz" />
+            </td>
+        </tr>
+    </table>
+    
 </form>
