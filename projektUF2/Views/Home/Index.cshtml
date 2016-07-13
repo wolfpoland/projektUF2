@@ -7,10 +7,11 @@
                     console.log(item.imie);
                     console.log('testp:' + item.Id + "testp");
                     //    var tekst = 'onClick="zabawa("' + item.Id+'")"';
-                    var teskt = "/api/Kontakts/" + item.Id;
+                    var tekst = "/api/Kontakts/" + item.Id;
                     //  $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + '<a id="link" class="linki"  onClick="zabawa("'+item.Id+'""> Usun </a> ' + '</li> ');
                     //<a onClick="zabawa("+item.Id+")">Usun</a>
-                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '<a id="link" class="linki" tekst=' + teskt + '> Usun </a> <a id="link" class="puty" tekst=' + teskt + '> Edytuj </a> ' + '</li> ');
+                    console.log('Tekst: ' + tekst);
+                    $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + '<a id="link" class="linki" tekst=' + tekst + '> Usun </a> <a id="link" class="puty" tekst=' + tekst + '> Edytuj </a> ' + '</li> ');
                  //   $('#produkty').append('<li>' + item.Imie + ' ' + item.Nazwisko + ' ' + item.Id + "<a href='#' onclick='zabawa(\\'item.Id\\')'>Usun</a>");
                 });
             });
@@ -42,32 +43,35 @@
         var Kontakt = {
 
         }
-        function puty(item){
+        $(document).on('click', "a.puty", function () {
             var id = $(this).attr('tekst');
-
+            console.log($(this).attr('tekst'));
             console.log('Id:' + id);
             console.log('Wyswietlam parentow:');
+            console.log($(this).parent("item"));
             /* var paren = $(this).parents('*');
              for (var i = 0; i < paren.length; i++) {
                  console.log(paren[i]);
              }*/
-
+            var in1 = $('#inputer').val();
+            var in2 = $('#inputer2').val()
+            console.log($('#inputer').val());
+            console.log(in1);
+            console.log(in2);
             console.log('TU PUT');
             $.ajax({
                 url: id,
                 dataType: 'json',
                 type: 'PUT',
-                data: $(this).parent("item"),
+                data: "Imie="+in1+"&Nazwisko="+in2,
                 success: function (result) {
                     alert('PUT:' + result);
 
                 }
 
             });
-        }
-        $(document).on('click', "a.puty", function () {
-            puty($(this.item));
         });
+       
         function zabawa(id) {
             console.log("ruszyla");
             console.log("ID: " + id);
@@ -187,11 +191,11 @@
       
         <tr>
             <th><label for="contactId">Imie:</label></th>
-            <td><input type="text" name="Imie" /></td>
+            <td><input type="text" name="Imie" id="inputer" /></td>
         </tr>
         <tr>
             <th><label for="contactName">Nazwisko:</label></th>
-            <td><input type="text" name="Nazwisko" /></td>
+            <td><input type="text" name="Nazwisko" id="inputer2"/></td>
         </tr>
         <tr>
 
